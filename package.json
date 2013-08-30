@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha --reporter spec $(find . -path ./node_modules -prune -o -name '*.spec.js' -print)"
   },
+  "devDependencies": {
+  	"mocha": "*"
+  },
   "author": "",
-  "license": "BSD-2-Clause"
+  "license": "MIT"
 }
