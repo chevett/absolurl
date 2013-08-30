@@ -21,6 +21,12 @@ describe('main', function (){
 	it('should return true for url starting with a two part domain name', function(){
 		expect(index.isAbsolute('google.com')).to.be.true;
 	});
+	it('should return true for ipv4 address', function(){
+		expect(index.isAbsolute('192.168.21.21')).to.be.true;
+	});
+	it('should return true for protocol plus ipv4 address', function(){
+		expect(index.isAbsolute('ftp://192.168.21.21')).to.be.true;
+	});
 	it('should return true for valid protocol relative url', function(){
 		expect(index.isAbsolute('//google.com')).to.be.true;
 	});

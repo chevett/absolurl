@@ -6,18 +6,13 @@ function _ensureComplete(strUrl, strContextUrl){
 		return null;
 	} else if (_isRelative(strUrl)){
 		strUrl = url.resolve(strContextUrl, strUrl);
-
-
 	}
 	
-//	var oContextUrl = url.parse(strContextUrl);
-
 	if (!/^\w{3,6}:\/\//.test(strUrl)){
 		strUrl = 'http://' + strUrl;
 	}
 
 	var oUrl = url.parse(strUrl);
-	//console.log(oUrl);
 	oUrl.slashes = true;
 	oUrl.protocol = oUrl.protocol || 'http:';
 
@@ -27,7 +22,6 @@ function _ensureComplete(strUrl, strContextUrl){
 	} else if (oUrl.protocol == 'https:' && oUrl.port == 443){
 		delete oUrl.port;
 	}
-	//console.log(oUrl);
 
 	return url.format(oUrl);
 }
@@ -36,7 +30,9 @@ function _ensureComplete(strUrl, strContextUrl){
 function _isAbsolute(strUrl){
 	var match = strUrl.match(/^((\w{3,6}:)?\/\/)?([^:\/?$]*)/);
 	if (!match || !match[3]) return false;
-	
+
+	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(match[3])) return true;
+
 	var domain = match[3];
 	var domainSplit = domain.split('.');
 	var tld = domainSplit[domainSplit.length-1];
