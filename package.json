@@ -1,0 +1,11 @@
+{
+  "name": "absolurl",
+  "version": "0.0.0",
+  "description": "lib for resolving urls",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec $(find . -path ./node_modules -prune -o -name '*.spec.js' -print)"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}
