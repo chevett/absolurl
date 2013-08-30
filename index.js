@@ -2,6 +2,8 @@ var url = require('url');
 var tlds = require('./tlds');
 
 function _ensureComplete(strUrl, strContextUrl){
+	if (!strUrl) return strUrl;
+
 	if (_isRelative(strUrl) && (!strContextUrl || _isRelative(strContextUrl))){
 		return null;
 	} else if (_isRelative(strUrl)){
@@ -33,6 +35,8 @@ function _ensureProtocol(strUrl){
 	return strUrl;
 }
 function _isAbsolute(strUrl){
+	if (!strUrl) return strUrl;
+
 	var match = strUrl.match(/^((\w{3,6}:)?\/\/)?([^:\/?$]*)/);
 	if (!match || !match[3]) return false;
 

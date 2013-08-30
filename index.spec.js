@@ -3,6 +3,9 @@ var expect = require('chai').expect;
 
 describe('main', function (){
 	
+	it('should not explode when passed null', function(){
+		expect(index.isAbsolute(null)).to.be.null;
+	});
 	it('should return true for url starting with http://', function(){
 		expect(index.isAbsolute('http://www.google.com')).to.be.true;
 	});
