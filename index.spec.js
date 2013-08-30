@@ -105,6 +105,12 @@ describe('main', function (){
 			it('should resolve a relative file', function(){
 				expect(index.ensureComplete('default.aspx', 'http://www.yahoo.com/news/')).to.be.equal('http://www.yahoo.com/news/default.aspx');
 			});
+			it('should use default protocol when there is no protocol', function(){
+				expect(index.ensureComplete('default.aspx', 'www.yahoo.com/news/', {protocol: 'xxx:'})).to.be.equal('xxx://www.yahoo.com/news/default.aspx');
+			});
+			it('should not use default protocol when there is a protocol', function(){
+				expect(index.ensureComplete('default.aspx', 'yyy://www.yahoo.com/news/', {protocol: 'xxx:'})).to.be.equal('yyy://www.yahoo.com/news/default.aspx');
+			});
 		});
 	});
 });

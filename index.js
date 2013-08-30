@@ -1,21 +1,43 @@
 var url = require('url');
 var tlds = require('./tlds');
 
-function _ensureComplete(strUrl, strContextUrl){
+function _getOptions(options){
+	
+	var defaults = {
+		protocol: 'http:',
+		port: 80
+	};
+
+	if (!options){
+		return Object.create(defaults);
+	}
+
+	Object.getOwnPropertyNames(defaults).forEach(function(propertyName){
+		if (!options.hasOwnProperty(propertyName)){
+			options[propertyName] = defaults[propertyName];
+		}
+	});
+
+	return options;
+}
+
+function _ensureComplete(strUrl, strContextUrl, options){
 	if (!strUrl) return strUrl;
+
+	options = _getOptions(options);
 
 	if (_isRelative(strUrl) && (!strContextUrl || _isRelative(strContextUrl))){
 		return null;
 	} else if (_isRelative(strUrl)){
-		strContextUrl = _ensureProtocol(strContextUrl);
+		strContextUrl = _ensureProtocol(strContextUrl, options);
 		strUrl = url.resolve(strContextUrl, strUrl);
 	}
 	
-	strUrl = _ensureProtocol(strUrl);
+	strUrl = _ensureProtocol(strUrl, options);
 
 	var oUrl = url.parse(strUrl);
 	oUrl.slashes = true;
-	oUrl.protocol = oUrl.protocol || 'http:';
+	oUrl.protocol = oUrl.protocol || options.protocol; 
 
 	delete oUrl.host;
 	if (oUrl.protocol == 'http:' && oUrl.port == 80){
@@ -27,9 +49,9 @@ function _ensureComplete(strUrl, strContextUrl){
 	return url.format(oUrl);
 }
 
-function _ensureProtocol(strUrl){
+function _ensureProtocol(strUrl, options){
 	if (!/^\w{3,6}:\/\//.test(strUrl)){
-		return 'http://' + strUrl;
+		return options.protocol +'//' + strUrl;
 	}
 
 	return strUrl;
