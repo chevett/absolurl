@@ -81,6 +81,12 @@ describe('main', function (){
 			it('should resolve a relative url', function(){
 				expect(index.ensureComplete('news/mike', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/news/mike');
 			});
+			it('should resolve a relative url and assume http', function(){
+				expect(index.ensureComplete('news/mike', 'www.yahoo.com')).to.be.equal('http://www.yahoo.com/news/mike');
+			});
+			it('should resolve a relative url and preserve https', function(){
+				expect(index.ensureComplete('news/mike', 'https://www.yahoo.com')).to.be.equal('https://www.yahoo.com/news/mike');
+			});
 			it('should resolve a relative url that kind of looks like a domain name', function(){
 				expect(index.ensureComplete('google.txt', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/google.txt');
 			});

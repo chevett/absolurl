@@ -5,12 +5,11 @@ function _ensureComplete(strUrl, strContextUrl){
 	if (_isRelative(strUrl) && (!strContextUrl || _isRelative(strContextUrl))){
 		return null;
 	} else if (_isRelative(strUrl)){
+		strContextUrl = _ensureProtocol(strContextUrl);
 		strUrl = url.resolve(strContextUrl, strUrl);
 	}
 	
-	if (!/^\w{3,6}:\/\//.test(strUrl)){
-		strUrl = 'http://' + strUrl;
-	}
+	strUrl = _ensureProtocol(strUrl);
 
 	var oUrl = url.parse(strUrl);
 	oUrl.slashes = true;
@@ -26,7 +25,13 @@ function _ensureComplete(strUrl, strContextUrl){
 	return url.format(oUrl);
 }
 
+function _ensureProtocol(strUrl){
+	if (!/^\w{3,6}:\/\//.test(strUrl)){
+		return 'http://' + strUrl;
+	}
 
+	return strUrl;
+}
 function _isAbsolute(strUrl){
 	var match = strUrl.match(/^((\w{3,6}:)?\/\/)?([^:\/?$]*)/);
 	if (!match || !match[3]) return false;
