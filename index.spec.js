@@ -68,5 +68,28 @@ describe('main', function (){
 				expect(index.ensureComplete('http://www.google.com:443/')).to.be.equal('http://www.google.com:443/');
 			});
 		});
+		describe('when there is context', function (){
+			it('should not change a complete url', function(){
+				expect(index.ensureComplete('https://www.google.com/?search=chevett', 'http://www.yahoo.com')).to.be.equal('https://www.google.com/?search=chevett');
+			});
+			it('should resolve a relative url', function(){
+				expect(index.ensureComplete('news/mike', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/news/mike');
+			});
+			it('should resolve a relative url that kind of looks like a domain name', function(){
+				expect(index.ensureComplete('google.txt', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/google.txt');
+			});
+			it('should not resolve a tld', function(){
+				expect(index.ensureComplete('google.com', 'http://www.yahoo.com')).to.be.equal('http://google.com/');
+			});
+			it('should resolve a relative url and preserve path if there is a trailing slash', function(){
+				expect(index.ensureComplete('google', 'http://www.yahoo.com/news/')).to.be.equal('http://www.yahoo.com/news/google');
+			});
+			it('should resolve a relative url and not preserve path if there is no trailing slash', function(){
+				expect(index.ensureComplete('google', 'http://www.yahoo.com/news')).to.be.equal('http://www.yahoo.com/google');
+			});
+			it('should resolve a relative file', function(){
+				expect(index.ensureComplete('default.aspx', 'http://www.yahoo.com/news/')).to.be.equal('http://www.yahoo.com/news/default.aspx');
+			});
+		});
 	});
 });

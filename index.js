@@ -17,7 +17,7 @@ function _ensureComplete(strUrl, strContextUrl){
 	}
 
 	var oUrl = url.parse(strUrl);
-	console.log(oUrl);
+	//console.log(oUrl);
 	oUrl.slashes = true;
 	oUrl.protocol = oUrl.protocol || 'http:';
 
@@ -27,7 +27,7 @@ function _ensureComplete(strUrl, strContextUrl){
 	} else if (oUrl.protocol == 'https:' && oUrl.port == 443){
 		delete oUrl.port;
 	}
-	console.log(oUrl);
+	//console.log(oUrl);
 
 	return url.format(oUrl);
 }
@@ -52,6 +52,6 @@ function _hasProtocol(strUrl){
 }
 
 exports.isAbsolute =_isAbsolute;
-exports._isRelative =_isRelative;
+exports.isRelative =_isRelative;
 exports.hasProtocol =_hasProtocol;
 exports.ensureComplete =_ensureComplete;
