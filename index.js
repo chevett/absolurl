@@ -21,21 +21,45 @@ function _getOptions(options){
 	return options;
 }
 
+function _parse(completeUrl){
+	// handle user@pass one day
+	var regex = /^(\w*:)\/\/([^\.]*(\.[^:\?\/]*))+(:(\d+))?([^\?]*)(\??(.*))$/;
+	console.log(completeUrl);
+	var match = completeUrl.match(regex);
+//	console.log(match);
+	var o = {
+		protocol: match[1],
+		slashes: true,
+		host: match[2] + (match[4] || ''),
+		hostname: match[2],
+		port: match[5],
+		seach: match[7],
+		query: match[8],
+		path: match[6] + (match[7] || ''),
+		pathname: match[6]
+	};
+
+	if (!o.port) delete o.port;
+	console.log(o);
+	return o;
+}
+
 function _ensureComplete(strUrl, strContextUrl, options){
 	if (!strUrl) return strUrl;
 
 	options = _getOptions(options);
 
-	if (_isRelative(strUrl) && (!strContextUrl || _isRelative(strContextUrl))){
-		return null;
-	} else if (_isRelative(strUrl)){
+	if (_isRelative(strUrl)){
+		if (!strContextUrl || _isRelative(strContextUrl)) return null;
+
 		strContextUrl = _ensureProtocol(strContextUrl, options);
 		strUrl = url.resolve(strContextUrl, strUrl);
 	}
 	
 	strUrl = _ensureProtocol(strUrl, options);
-
-	var oUrl = url.parse(strUrl);
+//console.log(strUrl);
+	var path = /\.\w*[^?](.*)/
+	var oUrl = _parse(strUrl);
 	oUrl.slashes = true;
 	oUrl.protocol = oUrl.protocol || options.protocol; 
 
@@ -45,6 +69,12 @@ function _ensureComplete(strUrl, strContextUrl, options){
 	} else if (oUrl.protocol == 'https:' && oUrl.port == 443){
 		delete oUrl.port;
 	}
+
+	if (oUrl.path==='/' && !/\/$/.test(strUrl)){
+		delete oUrl.path;
+		delete oUrl.pathname;
+	}
+
 
 	return url.format(oUrl);
 }

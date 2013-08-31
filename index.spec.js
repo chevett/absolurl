@@ -61,8 +61,11 @@ describe('main', function (){
 			it('should add http if there is no protocol', function(){
 				expect(index.ensureComplete('www.google.com/')).to.be.equal('http://www.google.com/');
 			});
-			it('should add a trailing slash to tld', function(){
-				expect(index.ensureComplete('https://www.google.com')).to.be.equal('https://www.google.com/');
+			it('should not add a trailing slash to tld', function(){
+				expect(index.ensureComplete('www.google.com')).to.be.equal('http://www.google.com');
+			});
+			it('should not add a trailing slash to tld and protocol', function(){
+				expect(index.ensureComplete('https://www.google.com')).to.be.equal('https://www.google.com');
 			});
 			it('should preserve non standard port', function(){
 				expect(index.ensureComplete('https://www.google.com:88/')).to.be.equal('https://www.google.com:88/');
@@ -94,7 +97,7 @@ describe('main', function (){
 				expect(index.ensureComplete('google.txt', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/google.txt');
 			});
 			it('should not resolve a tld', function(){
-				expect(index.ensureComplete('google.com', 'http://www.yahoo.com')).to.be.equal('http://google.com/');
+				expect(index.ensureComplete('google.com', 'http://www.yahoo.com')).to.be.equal('http://google.com');
 			});
 			it('should resolve a relative url and preserve path if there is a trailing slash', function(){
 				expect(index.ensureComplete('google', 'http://www.yahoo.com/news/')).to.be.equal('http://www.yahoo.com/news/google');
