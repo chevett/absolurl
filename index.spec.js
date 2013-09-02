@@ -51,8 +51,12 @@ describe('main', function (){
 	it('should return false for protocol and domain name with bad tld ', function(){
 		expect(index.isAbsolute('http://google.bad')).to.be.false;
 	});
-
-
+	it('should return true for psuedo javascript protocol', function(){
+		expect(index.isAbsolute('javascript:void(0)')).to.be.true;
+	});
+	it('should return true for psuedo data protocol', function(){
+		expect(index.isAbsolute('data:img/png,dsafsdfa')).to.be.true;
+	});
 	describe('#ensureComplete', function (){
 		describe('when there is no context', function (){
 			it('should not change a complete url', function(){

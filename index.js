@@ -1,5 +1,9 @@
 var url = require('url');
 var tlds = require('./tlds');
+var protocolsToIgnore = {
+	"javascript": true,
+	"data": true
+};
 
 function _getOptions(options){
 	
@@ -79,15 +83,25 @@ function _ensureProtocol(strUrl, options){
 
 	return strUrl;
 }
+function _hasPsuedoProtocol(strUrl){
+	var psuedoProtocolMatch = strUrl.match(/^\s*(\w*):/);
+	
+	return psuedoProtocolMatch && protocolsToIgnore[psuedoProtocolMatch[1] || 'nope'];
+}
+
 function _isAbsolute(strUrl){
 	if (!strUrl) return strUrl;
 
-	var match = strUrl.match(/^((\w{3,6}:)?\/\/)?([^:\/?$]*)/);
+	if (_hasPsuedoProtocol(strUrl)) return true;
+
+	var match = strUrl.match(/^((\w+:)?\/\/)?([^:\/?$]*)/);
 	if (!match || !match[3]) return false;
 
-	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(match[3])) return true;
-
 	var domain = match[3];
+
+	// if the domain is an ip address
+	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain)) return true;
+
 	var domainSplit = domain.split('.');
 	var tld = domainSplit[domainSplit.length-1];
 
