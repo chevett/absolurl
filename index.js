@@ -106,6 +106,8 @@ function _isAbsolute(strUrl){
 	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain)) return true;
 
 	var domainSplit = domain.split('.');
+
+	if (domainSplit.length === 1) return false;
 	var tld = domainSplit[domainSplit.length-1];
 
 	return !!tlds[tld.toUpperCase()];

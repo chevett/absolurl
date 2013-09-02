@@ -106,6 +106,12 @@ describe('main', function (){
 			it('should resolve a relative url', function(){
 				expect(index.ensureComplete('news/mike', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/news/mike');
 			});
+			it('should resolve \'com/\' as a relative url', function(){
+				expect(index.ensureComplete('com/', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/com/');
+			});
+			it('should resolve \'comm/\' as a relative url', function(){
+				expect(index.ensureComplete('comm/', 'http://www.yahoo.com')).to.be.equal('http://www.yahoo.com/comm/');
+			});
 			it('should resolve a relative url and assume http', function(){
 				expect(index.ensureComplete('news/mike', 'www.yahoo.com')).to.be.equal('http://www.yahoo.com/news/mike');
 			});
