@@ -83,6 +83,12 @@ describe('main', function (){
 			it('should remove standard ssl port when not ssl', function(){
 				expect(index.ensureComplete('http://www.google.com:443/')).to.be.equal('http://www.google.com:443/');
 			});
+			it('should not change a psuedo javascript protocol url', function(){
+				expect(index.ensureComplete('javascript:void(0)')).to.be.equal('javascript:void(0)');
+			});
+			it('should not change a psuedo data protocol url', function(){
+				expect(index.ensureComplete('data:img/png,dsafsdfa')).to.be.equal('data:img/png,dsafsdfa');
+			});
 		});
 		describe('when there is context', function (){
 			it('should not change a complete url', function(){

@@ -51,6 +51,7 @@ function _format(o){
 
 function _ensureComplete(strUrl, strContextUrl, options){
 	if (!strUrl) return strUrl;
+	if (_hasPsuedoProtocol(strUrl)) return strUrl;
 
 	options = _getOptions(options);
 
