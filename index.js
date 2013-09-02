@@ -78,7 +78,9 @@ function _ensureComplete(strUrl, strContextUrl, options){
 }
 
 function _ensureProtocol(strUrl, options){
-	if (!/^\w{3,6}:\/\//.test(strUrl)){
+	if (/^\s*\/\//.test(strUrl)){
+		return options.protocol + strUrl;
+	} else if (!/^\w{3,6}:\/\//.test(strUrl)){
 		return options.protocol +'//' + strUrl;
 	}
 

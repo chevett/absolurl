@@ -57,6 +57,12 @@ describe('main', function (){
 	it('should return true for psuedo data protocol', function(){
 		expect(index.isAbsolute('data:img/png,dsafsdfa')).to.be.true;
 	});
+	it('should return true for protocol relative url', function(){
+		expect(index.isAbsolute('//www.dotcom.com')).to.be.true;
+	});
+	it('should return false for protocol relative url with a bad domain name', function(){
+		expect(index.isAbsolute('//www.dotcom.txt')).to.be.false;
+	});
 	describe('#ensureComplete', function (){
 		describe('when there is no context', function (){
 			it('should not change a complete url', function(){
@@ -64,6 +70,9 @@ describe('main', function (){
 			});
 			it('should add http if there is no protocol', function(){
 				expect(index.ensureComplete('www.google.com/')).to.be.equal('http://www.google.com/');
+			});
+			it('should add http to a protocol relative url', function(){
+				expect(index.ensureComplete('//www.google.com/')).to.be.equal('http://www.google.com/');
 			});
 			it('should not add a trailing slash to tld', function(){
 				expect(index.ensureComplete('www.google.com')).to.be.equal('http://www.google.com');
