@@ -139,6 +139,9 @@ describe('main', function (){
 			it('should not use default protocol when there is a protocol', function(){
 				expect(index.ensureComplete('default.aspx', 'yyy://www.yahoo.com/news/', {protocol: 'xxx:'})).to.be.equal('yyy://www.yahoo.com/news/default.aspx');
 			});
+			it('should resolve github calendar data', function(){
+				expect(index.ensureComplete('users/chevett/contributions_calendar_data', 'https://github.com/chevett')).to.be.equal('https://github.com/users/chevett/contributions_calendar_data');
+			});
 		});
 	});
 });
