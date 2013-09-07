@@ -142,6 +142,9 @@ describe('main', function (){
 			it('should resolve github calendar data', function(){
 				expect(index.ensureComplete('users/chevett/contributions_calendar_data', 'https://github.com/chevett')).to.be.equal('https://github.com/users/chevett/contributions_calendar_data');
 			});
+			it('should not change mailto: urls', function(){
+				expect(index.ensureComplete('mailto:bgates@microsoft.com', 'https://github.com/chevett')).to.be.equal('mailto:bgates@microsoft.com');
+			});
 		});
 	});
 });

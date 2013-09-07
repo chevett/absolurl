@@ -2,6 +2,7 @@ var url = require('url');
 var tlds = require('./tlds');
 var protocolsToIgnore = {
 	"javascript": true,
+	"mailto": true,
 	"data": true
 };
 
