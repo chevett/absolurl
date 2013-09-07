@@ -51,6 +51,19 @@ function _format(o){
 }
 
 function _ensureComplete(strUrl, strContextUrl, options){
+	try {
+		return _onEnsureComplete(strUrl, strContextUrl, options);
+	}
+	catch (e){
+		throw {
+			name: 'absolurlException',
+			message: 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".',
+			innerException: e
+		};
+	}
+}
+
+function _onEnsureComplete(strUrl, strContextUrl, options){
 	if (!strUrl) return strUrl;
 	if (_hasPsuedoProtocol(strUrl)) return strUrl;
 
