@@ -98,6 +98,9 @@ describe('main', function (){
 			it('should not change a psuedo data protocol url', function(){
 				expect(index.ensureComplete('data:img/png,dsafsdfa')).to.be.equal('data:img/png,dsafsdfa');
 			});
+			it('should treat localhost as a valid domain name', function(){
+				expect(index.ensureComplete('localhost:3000/what')).to.be.equal('http://localhost:3000/what');
+			});
 		});
 		describe('when there is context', function (){
 			it('should not change a complete url', function(){

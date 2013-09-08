@@ -28,18 +28,18 @@ function _getOptions(options){
 
 function _parse(completeUrl){
 	// todo: handle user@pass one day
-	var regex = /^((\w+:)\/\/)?([^\.]*(\.[^:\?\/]+)+)(:(\d+))?([^\?]*)(\??(.*))$/;
+	var regex = /^((\w+:)\/\/)?(([^\.]*(\.[^:\?\/]+)+)|localhost)(:(\d+))?([^\?]*)(\??(.*))$/;
 	var match = completeUrl.match(regex);
 	var o = {
 		protocol: (match[2] || ''),
 		slashes: true,
 		host: (match[3] || '') + (match[5] || ''),
 		hostname: (match[3] || ''),
-		port: (match[6] || ''),
-		seach: (match[8] || ''),
-		query: (match[9] || ''),
-		path: (match[7] || '')  + (match[8] || ''),
-		pathname: (match[7] || '')
+		port: (match[7] || ''),
+		seach: (match[9] || ''),
+		query: (match[10] || ''),
+		path: (match[8] || '')  + (match[9] || ''),
+		pathname: (match[8] || '')
 	};
 
 	return o;
@@ -115,6 +115,8 @@ function _isAbsolute(strUrl){
 	if (!match || !match[3]) return false;
 
 	var domain = match[3];
+
+	if (domain === 'localhost') return true; // sure sure, whatever
 
 	// if the domain is an ip address
 	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain)) return true;
