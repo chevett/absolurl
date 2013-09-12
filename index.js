@@ -101,7 +101,7 @@ function _ensureProtocol(strUrl, options){
 	return strUrl;
 }
 function _hasPsuedoProtocol(strUrl){
-	var psuedoProtocolMatch = strUrl.match(/^\s*(\w*):/);
+	var psuedoProtocolMatch = strUrl.match(/^\s*(\w*):/i);
 	
 	return psuedoProtocolMatch && protocolsToIgnore[psuedoProtocolMatch[1] || 'nope'];
 }
