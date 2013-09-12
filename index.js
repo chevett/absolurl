@@ -103,7 +103,7 @@ function _ensureProtocol(strUrl, options){
 function _hasPsuedoProtocol(strUrl){
 	var psuedoProtocolMatch = strUrl.match(/^\s*(\w*):/i);
 	
-	return psuedoProtocolMatch && protocolsToIgnore[psuedoProtocolMatch[1] || 'nope'];
+	return psuedoProtocolMatch && protocolsToIgnore[(psuedoProtocolMatch[1] || 'nope').toLowerCase()];
 }
 
 function _isAbsolute(strUrl){
