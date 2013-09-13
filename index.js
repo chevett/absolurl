@@ -121,6 +121,8 @@ function _isAbsolute(strUrl){
 	// if the domain is an ip address
 	if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain)) return true;
 
+	if (domain === 'localhost') return true;
+
 	var domainSplit = domain.split('.');
 
 	if (domainSplit.length === 1) return false;

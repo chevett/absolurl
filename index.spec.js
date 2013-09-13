@@ -63,6 +63,9 @@ describe('main', function (){
 	it('should return false for protocol relative url with a bad domain name', function(){
 		expect(index.isAbsolute('//www.dotcom.txt')).to.be.false;
 	});
+	it('should true for localhost', function(){
+		expect(index.isAbsolute('localhost:3000')).to.be.true;
+	});
 	describe('#ensureComplete', function (){
 		describe('when there is no context', function (){
 			it('should not change a complete url', function(){
@@ -100,6 +103,9 @@ describe('main', function (){
 			});
 			it('should treat localhost as a valid domain name', function(){
 				expect(index.ensureComplete('localhost:3000/what')).to.be.equal('http://localhost:3000/what');
+			});
+			it('should treat localhost as a legit domain', function(){
+				expect(index.ensureComplete('localhost:3001')).to.be.equal('http://localhost:3001');
 			});
 		});
 		describe('when there is context', function (){
