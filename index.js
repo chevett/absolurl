@@ -3,7 +3,8 @@ var tlds = require('./tlds');
 var protocolsToIgnore = {
 	"javascript": true,
 	"mailto": true,
-	"data": true
+	"data": true,
+	"tel": true
 };
 
 function _getOptions(options){
