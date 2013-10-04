@@ -27,10 +27,15 @@ function _getOptions(options){
 	return options;
 }
 
+function _trim(str){
+	return str.replace(/^\s+/, '').replace(/\s+$/, '');
+}
+
 function _parse(completeUrl){
+	
 	// todo: handle user@pass one day
 	var regex = /^((\w+:)\/\/)?(([^\.]*(\.[^:\?\/]+)+)|localhost)(:(\d+))?([^\?]*)(\??(.*))$/;
-	var match = completeUrl.match(regex);
+	var match = _trim(completeUrl).match(regex);
 	var o = {
 		protocol: (match[2] || ''),
 		slashes: true,

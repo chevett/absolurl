@@ -66,6 +66,12 @@ describe('main', function (){
 	it('should true for localhost', function(){
 		expect(index.isAbsolute('localhost:3000')).to.be.true;
 	});
+
+	
+
+
+
+
 	describe('#ensureComplete', function (){
 		describe('when there is no context', function (){
 			it('should not change a complete url', function(){
@@ -106,6 +112,9 @@ describe('main', function (){
 			});
 			it('should treat localhost as a legit domain', function(){
 				expect(index.ensureComplete('localhost:3001')).to.be.equal('http://localhost:3001');
+			});
+			it('should handle underscores', function(){
+				expect(index.ensureComplete('localhost:3001?_what=1')).to.be.equal('http://localhost:3001?_what=1');
 			});
 		});
 		describe('when there is context', function (){
@@ -153,6 +162,9 @@ describe('main', function (){
 			});
 			it('should not change mailto: urls', function(){
 				expect(index.ensureComplete('mailto:bgates@microsoft.com', 'https://github.com/chevett')).to.be.equal('mailto:bgates@microsoft.com');
+			});
+			it('should handle trailing garbage', function(){
+				expect(index.ensureComplete('http://www.google.com?q=1\n')).to.be.equal('http://www.google.com?q=1');
 			});
 		});
 	});
