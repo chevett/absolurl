@@ -8,7 +8,7 @@ var protocolsToIgnore = {
 };
 
 function _getOptions(options){
-	
+
 	var defaults = {
 		protocol: 'http:',
 		port: 80
@@ -32,7 +32,7 @@ function _trim(str){
 }
 
 function _parse(completeUrl){
-	
+
 	// todo: handle user@pass one day
 	var regex = /^((\w+:)\/\/)?(([^\.]*(\.[^:\?\/]+)+)|localhost)(:(\d+))?([^\?]*)(\??(.*))$/;
 	var match = _trim(completeUrl).match(regex);
@@ -61,11 +61,9 @@ function _ensureComplete(strUrl, strContextUrl, options){
 		return _onEnsureComplete(strUrl, strContextUrl, options);
 	}
 	catch (e){
-		throw {
-			name: 'absolurlException',
-			message: 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".',
-			innerException: e
-		};
+		e.message = 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".';
+		e.name = 'absolurlException';
+		throw e;
 	}
 }
 
@@ -81,12 +79,12 @@ function _onEnsureComplete(strUrl, strContextUrl, options){
 		strContextUrl = _ensureProtocol(strContextUrl, options);
 		strUrl = url.resolve(strContextUrl, strUrl);
 	}
-	
+
 	strUrl = _ensureProtocol(strUrl, options);
 
 	var oUrl = _parse(strUrl);
 	oUrl.slashes = true;
-	oUrl.protocol = oUrl.protocol || options.protocol; 
+	oUrl.protocol = oUrl.protocol || options.protocol;
 
 	if (oUrl.protocol == 'http:' && oUrl.port == 80){
 		delete oUrl.port;
@@ -108,7 +106,7 @@ function _ensureProtocol(strUrl, options){
 }
 function _hasPsuedoProtocol(strUrl){
 	var psuedoProtocolMatch = strUrl.match(/^\s*(\w*):/i);
-	
+
 	return psuedoProtocolMatch && protocolsToIgnore[(psuedoProtocolMatch[1] || 'nope').toLowerCase()];
 }
 

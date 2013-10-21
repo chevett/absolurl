@@ -2,7 +2,7 @@ var index = require('./index');
 var expect = require('chai').expect;
 
 describe('main', function (){
-	
+
 	it('should not explode when passed null', function(){
 		expect(index.isAbsolute(null)).to.be.null;
 	});
@@ -67,12 +67,21 @@ describe('main', function (){
 		expect(index.isAbsolute('localhost:3000')).to.be.true;
 	});
 
-	
+
 
 
 
 
 	describe('#ensureComplete', function (){
+		it('should throw real errors', function (done) {
+			try {
+				index.ensureComplete(['this','will','throw'])
+				done(new Error('didnt throw an error'));
+			} catch (err) {
+				expect(err).to.be.an.instanceof(Error);
+				done();
+			}
+		})
 		describe('when there is no context', function (){
 			it('should not change a complete url', function(){
 				expect(index.ensureComplete('https://www.google.com/?search=chevett')).to.be.equal('https://www.google.com/?search=chevett');
