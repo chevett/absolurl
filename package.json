@@ -10,6 +10,7 @@
   	"mocha": "*",
   	"chai": "*"
   },
-  "author": "",
+  "repository": "git@github.com:chevett/absolurl.git",
+  "author": "mike chevett",
   "license": "MIT"
 }
