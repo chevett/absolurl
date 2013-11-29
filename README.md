@@ -3,7 +3,7 @@ absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://t
 
 
 examples
-=======
+--------
 ```js
 absolurl.isAbsolute('www.google.com') => true
 absolurl.isAbsolute('google.com') => true
