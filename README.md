@@ -1,9 +1,8 @@
-absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://travis-ci.org/chevett/absolurl)
+absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://travis-ci.org/chevett/absolurl) [![NPM](https://nodei.co/npm-dl/absolurl.png?months=1)](https://nodei.co/npm/absolurl/)
 ========
 
 
-examples
---------
+##examples
 ```js
 absolurl.isAbsolute('www.google.com') => true
 absolurl.isAbsolute('google.com') => true
