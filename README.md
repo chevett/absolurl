@@ -1,6 +1,6 @@
-absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://travis-ci.org/chevett/absolurl) [![NPM](https://nodei.co/npm-dl/absolurl.png?months=1)](https://nodei.co/npm/absolurl/)
+absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://travis-ci.org/chevett/absolurl) [![Dependency Status](https://gemnasium.com/chevett/absolurl.png)](https://gemnasium.com/chevett/absolurl)
 ========
-
+[![NPM](https://nodei.co/npm-dl/absolurl.png?months=1)](https://nodei.co/npm/absolurl/)
 
 ##examples
 ```js
