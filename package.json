@@ -4,11 +4,13 @@
   "description": "lib for resolving urls",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec $(find . -path ./node_modules -prune -o -name '*.spec.js' -print)"
+    "start": "node_modules/nodemon/bin/nodemon.js ./node_modules/mocha/bin/mocha index.spec.js",
+    "test": "./node_modules/mocha/bin/mocha --reporter spec index.spec.js"
   },
   "devDependencies": {
-  	"mocha": "*",
-  	"chai": "*"
+    "mocha": "*",
+    "chai": "*",
+    "nodemon": "~1.0.1"
   },
   "repository": "git@github.com:chevett/absolurl.git",
   "author": "mike chevett",

@@ -1,5 +1,8 @@
-var url = require('url');
+var url = require('url'),
+	util = require('util'),
+	EventEmitter = require('events').EventEmitter;
 var tlds = require('./tlds');
+var o = new EventEmitter();
 var protocolsToIgnore = {
 	"javascript": true,
 	"mailto": true,
@@ -13,6 +16,7 @@ function _getOptions(options){
 		protocol: 'http:',
 		port: 80
 	};
+
 
 	if (!options){
 		return Object.create(defaults);
@@ -51,9 +55,9 @@ function _parse(completeUrl){
 	return o;
 }
 
-function _format(o){
-	var port = o.port ? ':'+ o.port : '';
-	return o.protocol + '//' + o.hostname + port + o.path;
+function _format(s){
+	var port = s.port ? ':'+ s.port : '';
+	return s.protocol + '//' + s.hostname + port + s.path;
 }
 
 function _ensureComplete(strUrl, strContextUrl, options){
@@ -63,7 +67,8 @@ function _ensureComplete(strUrl, strContextUrl, options){
 	catch (e){
 		e.message = 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".';
 		e.name = 'absolurlException';
-		throw e;
+		o.emit('error', e);
+		return strUrl;
 	}
 }
 
@@ -142,7 +147,9 @@ function _hasProtocol(strUrl){
 	return !!oUrl.port;
 }
 
-exports.isAbsolute =_isAbsolute;
-exports.isRelative =_isRelative;
-exports.hasProtocol =_hasProtocol;
-exports.ensureComplete =_ensureComplete;
+o.isAbsolute = _isAbsolute;
+o.isRelative = _isRelative;
+o.hasProtocol = _hasProtocol;
+o.ensureComplete = _ensureComplete;
+
+module.exports = o;
