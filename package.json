@@ -14,6 +14,6 @@
   },
   "repository": "git@github.com:chevett/absolurl.git",
   "author": "mike chevett",
-  "license": "MIT"
+  "license": "MIT",
   "keywords": ["url", "parse", "resolve"]
 }
