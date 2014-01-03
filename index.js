@@ -2,7 +2,6 @@ var url = require('url'),
 	util = require('util'),
 	EventEmitter = require('events').EventEmitter;
 var tlds = require('./tlds');
-var o = new EventEmitter();
 var protocolsToIgnore = {
 	"javascript": true,
 	"mailto": true,
@@ -60,7 +59,7 @@ function _format(s){
 	return s.protocol + '//' + s.hostname + port + s.path;
 }
 
-function _ensureComplete(strUrl, strContextUrl, options){
+function _resolve(strUrl, strContextUrl, options){
 	try {
 		return _onEnsureComplete(strUrl, strContextUrl, options);
 	}
@@ -147,9 +146,16 @@ function _hasProtocol(strUrl){
 	return !!oUrl.port;
 }
 
-o.isAbsolute = _isAbsolute;
-o.isRelative = _isRelative;
-o.hasProtocol = _hasProtocol;
-o.ensureComplete = _ensureComplete;
+function Absolurl(){
+	var o = new EventEmitter();
 
-module.exports = o;
+	o.isAbsolute = _isAbsolute;
+	o.isRelative = _isRelative;
+	o.hasProtocol = _hasProtocol;
+	o.resolve = _resolve;
+
+	return o;
+}
+
+
+module.exports = Absolurl;

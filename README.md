@@ -4,20 +4,16 @@ absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://t
 
 ##examples
 ```js
-absolurl.isAbsolute('www.google.com') => true
-absolurl.isAbsolute('google.com') => true
-absolurl.isAbsolute('google.txt') => false
-absolurl.isAbsolute('cheve.tt') => true
-absolurl.isAbsolute('192.168.1.1') => true
-absolurl.isAbsolute('https://github.com') => true
+var Absolurl = require('absolurl');
+var a = new Absolurl();
 
-absolurl.isRelative('/wtf') => true
-assolurl.isRelative('default.aspx') => true
-absolurl.isRelative('default.aspx?wtf=really') => true
-
-absolurl.ensureComplete('news', 'http://google.com') => 'http://google.com/news'
-absolurl.ensureComplete('news', 'http://google.com/news/') => 'http://google.com/news/news'
-absolurl.ensureComplete('news', 'google.com/news/') => 'http://google.com/news/news'
-absolurl.ensureComplete('file.txt', 'google.com') => 'http://google.com/file.txt'
-absolurl.ensureComplete('sky.net', 'http://google.com') => 'http://sky.net/'
+a.resolve('news', 'http://google.com'); // 'http://google.com/news'
+a.resolve('news', 'http://google.com/news/'); // 'http://google.com/news/news'
+a.resolve('news', 'google.com/news/'); // 'http://google.com/news/news'
+a.resolve('default.aspx', 'google.com/news/'); // 'http://google.com/news/default.aspx'
+a.resolve('yahoo.com', 'google.com/news/'); // 'http://yahoo.com'
+a.resolve('/wtf', 'google.com/news/'); // 'http://google.com/wtf'
+a.resolve('192.168.1.1', 'google.com/news/'); // 'http://192.168.1.1'
+a.resolve('file.txt', 'google.com'); // 'http://google.com/file.txt'
+a.resolve('sky.net', 'http://google.com'); // 'http://sky.net/'
 ```

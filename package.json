@@ -1,6 +1,6 @@
 {
   "name": "absolurl",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "lib for resolving urls",
   "main": "index.js",
   "scripts": {
@@ -15,4 +15,5 @@
   "repository": "git@github.com:chevett/absolurl.git",
   "author": "mike chevett",
   "license": "MIT"
+  "keywords": ["url", "parse", "resolve"]
 }
