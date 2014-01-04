@@ -152,7 +152,18 @@ function Absolurl(){
 	o.isAbsolute = _isAbsolute;
 	o.isRelative = _isRelative;
 	o.hasProtocol = _hasProtocol;
-	o.resolve = _resolve;
+	o.resolve = function(strUrl, strContextUrl, options){
+		try {
+			return _onEnsureComplete(strUrl, strContextUrl, options);
+		}
+		catch (e){
+			e.message = 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".';
+			e.name = 'absolurlException';
+			o.emit('error', e);
+			return strUrl;
+		}
+	};
+ 
 
 	return o;
 }
