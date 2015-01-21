@@ -1,13 +1,11 @@
 var url = require('url'),
-	util = require('util'),
-	EventEmitter = require('events').EventEmitter;
-var tlds = require('./tlds');
-var protocolsToIgnore = {
-	"javascript": true,
-	"mailto": true,
-	"data": true,
-	"tel": true
-};
+	tlds = require('./tlds'),
+	protocolsToIgnore = {
+		"javascript": true,
+		"mailto": true,
+		"data": true,
+		"tel": true
+	};
 
 function _getOptions(options){
 
@@ -60,15 +58,7 @@ function _format(s){
 }
 
 function _resolve(strUrl, strContextUrl, options){
-	try {
-		return _onEnsureComplete(strUrl, strContextUrl, options);
-	}
-	catch (e){
-		e.message = 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".';
-		e.name = 'absolurlException';
-		o.emit('error', e);
-		return strUrl;
-	}
+	return _onEnsureComplete(strUrl, strContextUrl, options);
 }
 
 function _onEnsureComplete(strUrl, strContextUrl, options){
@@ -147,7 +137,10 @@ function _hasProtocol(strUrl){
 }
 
 function Absolurl(){
-	var o = new EventEmitter();
+	if (!(this instanceof Absolurl)) return new Absolurl();
+
+	var o = this;
+
 
 	o.isAbsolute = _isAbsolute;
 	o.isRelative = _isRelative;
@@ -159,13 +152,9 @@ function Absolurl(){
 		catch (e){
 			e.message = 'failed while attempting to complete "' + strUrl + '" with "' + strContextUrl + '".';
 			e.name = 'absolurlException';
-			o.emit('error', e);
-			return strUrl;
+			throw e;
 		}
 	};
- 
-
-	return o;
 }
 
 

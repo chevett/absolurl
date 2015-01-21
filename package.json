@@ -1,7 +1,7 @@
 {
   "name": "absolurl",
-  "version": "1.0.1",
-  "description": "lib for resolving urls",
+  "version": "2.0.0",
+  "description": "knowledgeable url resolver",
   "main": "index.js",
   "scripts": {
     "start": "node_modules/nodemon/bin/nodemon.js ./node_modules/mocha/bin/mocha index.spec.js",
