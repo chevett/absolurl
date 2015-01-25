@@ -2,6 +2,10 @@ absolurl [![Build Status](https://travis-ci.org/chevett/absolurl.png)](https://t
 ========
 [![NPM](https://nodei.co/npm-dl/absolurl.png?months=1)](https://nodei.co/npm/absolurl/)
 
+This is a silly library that attempts to guess if things are a tld domain or not.  It will never be 100% accurate and what you probably want is the built-in `url.resolve` method.
+
+
+
 ##examples
 ```js
 var Absolurl = require('absolurl');
